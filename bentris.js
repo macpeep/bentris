@@ -58,7 +58,7 @@ function createRotatedPiece(piece) {
 
   const pW = piece[0].length;
   const pH = piece.length;
-  
+
   for (let y = 0; y < pH; y++) {
     const row = [];
     newPiece.push(row);
@@ -313,11 +313,15 @@ function gridToString(grid) {
   return str;
 }
 
-// key pressed states
+// key pressed and repeat states
 let keyLeftPressed = false;
+let keyLeftRepeat = false;
 let keyRightPressed = false;
+let keyRightRepeat = false;
 let keyRotatePressed = false;
+let keyRotateRepeat = false;
 let keyDownPressed = false;
+let keyDownRepeat = false;
 let keyDropPressed = false;
 
 // scheduled commands
@@ -330,9 +334,13 @@ let commandDropAt = 0;
 function resetCommands() {
   // reset command variables
   keyLeftPressed = false;
+  ketLeftRepeat = false;
   keyRightPressed = false;
+  keyRightRepeat = false;
   keyRotatePressed = false;
+  keyRotateRepeat = false;
   keyDownPressed = false;
+  keyDownRepeat = false;
   keyDropPressed = false;
 
   commandLeftAt = 0;
@@ -344,6 +352,7 @@ function resetCommands() {
 
 function handleCommands() {
   const now = Date.now();
+  const noRepeatInterval = 250;
   const horizontalInterval = 100;
   const rotateInteraval = 250;
   const downInterval = 50;
@@ -351,22 +360,30 @@ function handleCommands() {
   if (commandLeftAt && now >= commandLeftAt) {
     // move left
     movePiece(-1, 0);
-    commandLeftAt = now + horizontalInterval;
+    let interval = keyLeftRepeat ? horizontalInterval : noRepeatInterval;
+    commandLeftAt = now + interval;
+    keyLeftRepeat = true;
   }
   if (commandRightAt && now >= commandRightAt) {
     // move right
     movePiece(1, 0);
-    commandRightAt = now + horizontalInterval;
+    let interval = keyRightRepeat ? horizontalInterval : noRepeatInterval;
+    commandRightAt = now + interval;
+    keyRightRepeat = true;
   }
   if (commandRotateAt && now >= commandRotateAt) {
     // rotate
     rotatePiece(-1);
-    commandRotateAt = now + rotateInteraval;
+    let interval = keyRotateRepeat ? rotateInteraval : noRepeatInterval;
+    commandRotateAt = now + interval;
+    keyRotateRepeat = true;
   }
   if (commandDownAt && now >= commandDownAt) {
     // move down
     movePiece(0, 1);
-    commandDownAt = now + downInterval;
+    let interval = keyDownRepeat ? downInterval : noRepeatInterval;
+    commandDownAt = now + interval;
+    keyDownRepeat = true;
   }
   if (commandDropAt && now >= commandDropAt) {
     // drop
@@ -380,27 +397,36 @@ function onKeyEvent(key, pressed) {
 
   // map key events to commands
   if (key == 'ArrowLeft') {
+    // move left
     if (keyLeftPressed != pressed) {
       keyLeftPressed = pressed;
       commandLeftAt = pressed ? now : 0;
+      keyLeftRepeat = false;
     }
   } else if (key == 'ArrowRight') {
+    // move right
     if (keyRightPressed != pressed) {
       keyRightPressed = pressed;
       commandRightAt = pressed ? now : 0;
+      keyRightRepeat = false;
     }
   } else if (key == 'ArrowUp') {
+    // rotate
     if (keyRotatePressed != pressed) {
       keyRotatePressed = pressed;
       commandRotateAt = pressed ? now : 0;
+      keyRotateRepeat = false;
     }
   } else if (key == 'ArrowDown') {
+    // move down
     if (keyDownPressed != pressed) {
       keyDownPressed = pressed;
       commandDownAt = pressed ? now : 0;
       moveDownAt = now + moveDownInterval;
+      keyDownRepeat = false;
     }
   } else if (key == ' ') {
+    // drop
     if (keyDropPressed != pressed) {
       keyDropPressed = pressed;
       commandDropAt = pressed ? now : 0;

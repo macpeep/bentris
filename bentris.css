@@ -1,0 +1,63 @@
+body {
+  background: black;
+  color: white;
+  font-family: sans-serif;
+}
+
+.grid {
+  border: 10px solid rgb(100, 100, 100);
+  width: 250px;
+  margin: 25px auto 0px;
+}
+
+.grid-row {}
+
+.grid-cell {
+  display: inline-block;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top: 2px solid rgb(255, 255, 255, 0.2);
+  width: 25px;
+  height: 25px;
+  vertical-align: top;
+}
+
+.grid-cell.piece-0 {
+  background: rgb(20, 30, 40);
+}
+
+.grid-cell.piece-1 {
+  background: rgb(35, 165, 220);
+}
+
+.grid-cell.piece-2 {
+  background: rgb(245, 140, 25);
+}
+
+.grid-cell.piece-3 {
+  background: rgb(0, 80, 145);
+}
+
+.grid-cell.piece-4 {
+  background: rgb(235, 30, 40);  
+}
+
+.grid-cell.piece-5 {
+  background: rgb(65, 175, 60);  
+}
+
+.grid-cell.piece-6 {
+  background: rgb(255, 220, 5);  
+}
+
+.grid-cell.piece-7 {
+  background: rgb(135, 35, 130);  
+}
+
+.score {
+  width: 250px;
+  margin: 20px auto 0px;
+  font: 600 30px monospace;
+  color: rgb(100, 100, 100);
+  text-align: center;
+}

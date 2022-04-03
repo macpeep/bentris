@@ -360,28 +360,28 @@ function handleCommands() {
   if (commandLeftAt && now >= commandLeftAt) {
     // move left
     movePiece(-1, 0);
-    let interval = keyLeftRepeat ? horizontalInterval : noRepeatInterval;
+    const interval = keyLeftRepeat ? horizontalInterval : noRepeatInterval;
     commandLeftAt = now + interval;
     keyLeftRepeat = true;
   }
   if (commandRightAt && now >= commandRightAt) {
     // move right
     movePiece(1, 0);
-    let interval = keyRightRepeat ? horizontalInterval : noRepeatInterval;
+    const interval = keyRightRepeat ? horizontalInterval : noRepeatInterval;
     commandRightAt = now + interval;
     keyRightRepeat = true;
   }
   if (commandRotateAt && now >= commandRotateAt) {
     // rotate
     rotatePiece(-1);
-    let interval = keyRotateRepeat ? rotateInteraval : noRepeatInterval;
+    const interval = keyRotateRepeat ? rotateInteraval : noRepeatInterval;
     commandRotateAt = now + interval;
     keyRotateRepeat = true;
   }
   if (commandDownAt && now >= commandDownAt) {
     // move down
     movePiece(0, 1);
-    let interval = keyDownRepeat ? downInterval : noRepeatInterval;
+    const interval = keyDownRepeat ? downInterval : noRepeatInterval;
     commandDownAt = now + interval;
     keyDownRepeat = true;
   }
